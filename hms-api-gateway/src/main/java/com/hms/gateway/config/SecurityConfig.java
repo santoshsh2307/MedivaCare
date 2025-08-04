@@ -17,6 +17,14 @@ public class SecurityConfig {
                 .authorizeExchange(exchange -> exchange
                         .pathMatchers("/auth/**").permitAll() // Allow login/register etc.
                         .pathMatchers("/profile/**").permitAll()
+                        .pathMatchers("/appointment/**").permitAll()
+                        .pathMatchers("/emergency/**").permitAll()
+                        .pathMatchers("/inpatient/**").permitAll()
+                        .pathMatchers("/operation/**").permitAll()
+                        .pathMatchers("/discharge/**").permitAll()
+                        .pathMatchers("/mortuary/**").permitAll()
+                        .pathMatchers("/ambulance/**").permitAll()
+
                         .anyExchange().authenticated()
                 )
                 .build();

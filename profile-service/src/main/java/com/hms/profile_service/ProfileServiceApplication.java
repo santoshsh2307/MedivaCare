@@ -9,6 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class ProfileServiceApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ProfileServiceApplication.class, args);
 	}
 

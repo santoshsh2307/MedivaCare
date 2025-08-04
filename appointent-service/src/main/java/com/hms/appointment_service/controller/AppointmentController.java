@@ -14,7 +14,7 @@ public class AppointmentController {
     @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
     @GetMapping("/me")
     public ResponseEntity<String> getProfile(@RequestHeader("X-Auth-Username") String username) {
-        return ResponseEntity.ok("Hello " + username + ", this is your profile data.");
+        return ResponseEntity.ok("Hello " + username + ", this is your appointment data.");
     }
 
 }
