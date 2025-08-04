@@ -20,7 +20,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils,UserRepository userRepository) {
         this.authenticationManager = authenticationManager;

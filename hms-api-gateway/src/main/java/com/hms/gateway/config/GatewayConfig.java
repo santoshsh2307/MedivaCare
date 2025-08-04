@@ -21,6 +21,35 @@ public class GatewayConfig {
                 .route("profile-service", r -> r.path("/profile/**")
                         .filters(f -> f.filter(jwtAuthenticationFilter))
                         .uri("lb://profile-service"))
+
+                .route("appointment-service", r -> r.path("/appointment/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://appointment-service"))
+
+                .route("emergency-service", r -> r.path("/emergency/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://emergency-service"))
+
+                .route("inpatient-service", r -> r.path("/inpatient/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://inpatient-service"))
+
+                .route("operation-service", r -> r.path("/operation/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://operation-service"))
+
+                .route("discharge-service", r -> r.path("/discharge/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://discharge-service"))
+
+                .route("mortuary", r -> r.path("/mortuary/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://mortuary"))
+
+                .route("ambulance-service", r -> r.path("/ambulance/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://ambulance-service"))
+
                 .build();
     }
 }
