@@ -50,6 +50,70 @@ public class GatewayConfig {
                         .filters(f -> f.filter(jwtAuthenticationFilter))
                         .uri("lb://ambulance-service"))
 
+                .route("feedback-service", r -> r.path("/feedback/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://feedback-service"))
+
+                .route(" laboratory-service", r -> r.path("/laboratory/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://laboratory-service"))
+
+                .route(" radiology-service", r -> r.path("/radiology/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://radiology-service"))
+
+                .route(" bloodbank-service", r -> r.path("/bloodbank/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://bloodbank-service"))
+
+                .route(" linen-laundry-service", r -> r.path("/laundry/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://linen-laundry-service"))
+
+                .route(" billing-service", r -> r.path("/billing/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://billing-service"))
+
+                .route(" collection-service", r -> r.path("/collection/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://collection-service"))
+
+                .route(" insurance-service", r -> r.path("/insurance/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://insurance-service"))
+
+                .route(" inventory-service", r -> r.path("/inventory/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://inventory-service"))
+
+                .route(" inventory-setup-service", r -> r.path("/inventory_setup/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://inventory-setup-service"))
+
+                .route(" mrd-service", r -> r.path("/mrd/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://mrd-service"))
+
+                .route(" mis-dashboard-service", r -> r.path("/misDashboard/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://mis-dashboard-service"))
+
+                .route(" mis-report-service", r -> r.path("/misReport/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://mis-report-service"))
+
+                .route(" software-management", r -> r.path("/softwareManagement/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://software-management"))
+
+                .route(" hr-service", r -> r.path("/hrService/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://hr-service"))
+
+                .route(" lab-setup-service", r -> r.path("/labSetUp/**")
+                        .filters(f -> f.filter(jwtAuthenticationFilter))
+                        .uri("lb://lab-setup-service"))
+
                 .build();
     }
 }
