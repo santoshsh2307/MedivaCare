@@ -1,14 +1,10 @@
-# Use official Java base image
-FROM eclipse-temurin:17-jdk
-
-# Set working directory
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy the JAR file (replace with actual jar name if needed)
-COPY target/auth-service-0.0.1-SNAPSHOT.jar auth-service-0.0.1-SNAPSHOT.jar
-
-# Expose port (optional: the one your app runs on)
-EXPOSE 8081
-
-# Run the JAR
+FROM eclipse-temurin:17-jdk
+WORKDIR /auth-service
+COPY --from=build /app/target/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

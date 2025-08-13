@@ -2,7 +2,7 @@ spring:
   application:
     name: profile-service
   datasource:
-    url: jdbc:mysql://localhost:3306/hms_userdb
+    url: jdbc:mysql://host.docker.internal:3306/hms_userdb
     username: root
     password: Santosh@416
   jpa:
@@ -14,7 +14,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://host.docker.internal:8761/eureka
   instance:
     prefer-ip-address: true
 
