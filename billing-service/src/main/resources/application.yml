@@ -1,8 +1,8 @@
 spring:
   application:
-    name: auth-service
+    name: billing-service
   datasource:
-    url: jdbc:mysql://host.docker.internal:3306/hms_userdb
+    url: jdbc:mysql://localhost:3306/hms_userdb
     username: root
     password: Santosh@416
   jpa:
@@ -14,16 +14,11 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://host.docker.internal:8761/eureka
+      defaultZone: http://localhost:8761/eureka
   instance:
     prefer-ip-address: true
 
 server:
-  port: 8081
+  port: 8097
 
-jwt:
-  secret: myjwtsecretkey1234567890
 
-logging:
-  level:
-    org.springframework.security: DEBUG

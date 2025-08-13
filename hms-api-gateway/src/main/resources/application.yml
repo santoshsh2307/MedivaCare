@@ -8,5 +8,15 @@ spring:
     discovery:
       enabled: true
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://host.docker.internal:8761/eureka
+  instance:
+    prefer-ip-address: true
 jwt:
   secret: myjwtsecretkey1234567890
+
+logging:
+  level:
+    org.springframework.security: DEBUG
