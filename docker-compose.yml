@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  service-registry:
+    build:
+      context: ./service-registry
+    container_name: service-registry
+    ports:
+      - "8761:8761"
+    networks:
+      - hms-network
+
+  auth-service:
+    build:
+      context: ./auth-service
+    container_name: auth-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - service-registry
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  api-gateway:
+    build:
+      context: ./hms-api-gateway
+    container_name: hms-api-gateway
+    ports:
+      - "8082:8082"
+    depends_on:
+      - service-registry
+      - auth-service
+      - profile-service
+      - appointment-service
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  profile-service:
+    build:
+      context: ./profile-service
+    container_name: profile-service
+    ports:
+      - "8083:8083"
+    depends_on:
+      - service-registry
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  appointment-service:
+    build:
+      context: ./appointent-service
+    container_name: appointment-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - service-registry
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+networks:
+  hms-network:
+    driver: bridge
