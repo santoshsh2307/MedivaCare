@@ -40,8 +40,8 @@ logs/
 # Docker
 *.log
 docker-compose.override.yml
-**/Dockerfile
-**/docker-compose*.yml
+# **/Dockerfile
+# **/docker-compose*.yml
 
 # Others
 node_modules/
