@@ -1,9 +1,3 @@
-# Java
-*.class
-*.jar
-*.war
-*.ear
-
 # Maven
 target/
 dependency-reduced-pom.xml
@@ -46,3 +40,4 @@ docker-compose.override.yml
 # Others
 node_modules/
 *.bak
+
