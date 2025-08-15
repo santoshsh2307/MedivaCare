@@ -34,6 +34,28 @@ services:
       - auth-service
       - profile-service
       - appointment-service
+      - billing-service
+      - bloodbank-service
+      - collection-service
+      - discharge-service
+      - emergency-service
+      - feedback-service
+      - hr-service
+      - inpatient-service
+      - insurance-service
+      - inventory-service
+      - inventory-setup-service
+      - lab-setup-service
+      - laboratory-service
+      - linen-laundry-service
+      - mis-dashboard-service
+      - mis-report-service
+      - mortuary
+      - mrd-service
+      - operation-service
+      - radiology-service
+      - software-management
+      - ambulance-service
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=prod
     networks:
@@ -64,6 +86,293 @@ services:
 #      - SPRING_PROFILES_ACTIVE=prod
     networks:
       - hms-network
+
+  billing-service:
+    build:
+      context: ./billing-service
+    container_name: billing-service
+    ports:
+      - "8097:8097"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  bloodbank-service:
+    build:
+      context: ./bloodbank-service
+    container_name: bloodbank-service
+    ports:
+      - "8095:8095"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  collection-service:
+    build:
+      context: ./collection-service
+    container_name: collection-service
+    ports:
+      - "8098:8098"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  discharge-service:
+    build:
+      context: ./discharge-service
+    container_name: discharge-service
+    ports:
+      - "8089:8089"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  emergency-service:
+    build:
+      context: ./emergency-service
+    container_name: emergency-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  feedback-service:
+    build:
+      context: ./feedback-service
+    container_name: feedback-service
+    ports:
+      - "8092:8092"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  hr-service:
+    build:
+      context: ./hr-service
+    container_name: hr-service
+    ports:
+      - "8020:8020"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  inpatient-service:
+    build:
+      context: ./inpatient-service
+    container_name: inpatient-service
+    ports:
+      - "8087:8087"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  insurance-service:
+    build:
+      context: ./insurance-service
+    container_name: insurance-service
+    ports:
+      - "8099:8099"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  inventory-service:
+    build:
+      context: ./inventory-service
+    container_name: inventory-service
+    ports:
+      - "8010:8010"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  inventory-setup-service:
+    build:
+      context: ./inventory-setup-service
+    container_name: inventory-setup-service
+    ports:
+      - "8011:8011"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  lab-setup-service:
+    build:
+      context: ./lab-setup-service
+    container_name: lab-setup-service
+    ports:
+      - "8021:8021"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  laboratory-service:
+    build:
+      context: ./laboratory-service
+    container_name: laboratory-service
+    ports:
+      - "8093:8093"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  linen-laundry-service:
+    build:
+      context: ./linen-laundry-service
+    container_name: linen-laundry-service
+    ports:
+      - "8096:8096"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  mis-dashboard-service:
+    build:
+      context: ./mis-dashboard-service
+    container_name: mis-dashboard-service
+    ports:
+      - "8012:8012"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  mis-report-service:
+    build:
+      context: ./mis-report-service
+    container_name: mis-report-service
+    ports:
+      - "8018:8018"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  mortuary:
+    build:
+      context: ./mortuary
+    container_name: mortuary
+    ports:
+      - "8090:8090"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+#
+  mrd-service:
+    build:
+      context: ./mrd-service
+    container_name: mrd-service
+    ports:
+      - "8015:8015"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  operation-service:
+    build:
+      context: ./operation-service
+    container_name: operation-service
+    ports:
+      - "8088:8088"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  radiology-service:
+    build:
+      context: ./radiology-service
+    container_name: radiology-service
+    ports:
+      - "8094:8094"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  software-management:
+    build:
+      context: ./software-management
+    container_name: software-management
+    ports:
+      - "8019:8019"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
+  ambulance-service:
+    build:
+      context: ./ambulance-service
+    container_name: ambulance-service
+    ports:
+      - "8091:8091"
+    depends_on:
+      - service-registry
+    #    environment:
+    #      - SPRING_PROFILES_ACTIVE=prod
+    networks:
+      - hms-network
+
 
 networks:
   hms-network:

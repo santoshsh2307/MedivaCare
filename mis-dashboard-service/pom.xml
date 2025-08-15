@@ -11,7 +11,6 @@
 	<groupId>com.mis-dashboard-service</groupId>
 	<artifactId>mis-dashboard-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>mis-dashboard-service</name>
 	<description>mis-dashboard-service project for Spring Boot</description>
 	<url/>

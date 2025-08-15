@@ -11,7 +11,6 @@
 	<groupId>com.software-management</groupId>
 	<artifactId>software-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>software-management</name>
 	<description>Software-management project for Spring Boot</description>
 	<url/>

@@ -11,7 +11,6 @@
 	<groupId>com.mis-report-service</groupId>
 	<artifactId>mis-report-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>mis-report-service</name>
 	<description>Mis-report-service project for Spring Boot</description>
 	<url/>

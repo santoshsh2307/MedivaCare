@@ -11,7 +11,6 @@
 	<groupId>com.discharge-service</groupId>
 	<artifactId>discharge-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>discharge-service</name>
 	<description>Discharge-service project for Spring Boot</description>
 	<url/>

@@ -11,7 +11,6 @@
 	<groupId>com.hr-service</groupId>
 	<artifactId>hr-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>hr-service</name>
 	<description>Hr-service project for Spring Boot</description>
 	<url/>

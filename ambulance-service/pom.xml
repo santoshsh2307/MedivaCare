@@ -11,7 +11,6 @@
 	<groupId>com.ambulance-service</groupId>
 	<artifactId>ambulance-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>ambulance-service</name>
 	<description>Ambulance-service project for Spring Boot</description>
 	<url/>

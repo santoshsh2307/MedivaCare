@@ -11,7 +11,6 @@
 	<groupId>com.insurance-service</groupId>
 	<artifactId>insurance-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>insurance-service</name>
 	<description>Insuranceservice project for Spring Boot</description>
 	<url/>

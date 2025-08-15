@@ -11,7 +11,6 @@
 	<groupId>com.radiology-service</groupId>
 	<artifactId>radiology-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>radiology-service</name>
 	<description>Radiology-service project for Spring Boot</description>
 	<url/>
