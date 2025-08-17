@@ -10,3 +10,11 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always

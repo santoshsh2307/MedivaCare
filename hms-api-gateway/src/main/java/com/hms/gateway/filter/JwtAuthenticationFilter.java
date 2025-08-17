@@ -54,6 +54,13 @@ public class JwtAuthenticationFilter implements GatewayFilter {
     private Mono<Void> onError(ServerWebExchange exchange, String err, HttpStatus status) {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(status);
+
+        // ✅ Ensure CORS headers are always present
+        response.getHeaders().add("Access-Control-Allow-Origin", "http://localhost:3000");
+        response.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.getHeaders().add("Access-Control-Allow-Headers", "*");
+        response.getHeaders().add("Access-Control-Allow-Credentials", "true");
+
         byte[] bytes = err.getBytes(StandardCharsets.UTF_8);
         return response.writeWith(Mono.just(response.bufferFactory().wrap(bytes)));
     }
