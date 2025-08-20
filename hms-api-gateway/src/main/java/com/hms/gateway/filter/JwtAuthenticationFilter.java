@@ -26,6 +26,11 @@ public class JwtAuthenticationFilter implements GatewayFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
+        String path = request.getURI().getPath();
+        if (path.startsWith("/auth/") || path.startsWith("/feedback/")) {
+            return chain.filter(exchange);
+        }
+
         if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
             return onError(exchange, "Authorization header missing", HttpStatus.UNAUTHORIZED);
         }
