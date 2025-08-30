@@ -7,6 +7,9 @@ services:
     container_name: service-registry
     ports:
       - "8761:8761"
+      - "5005:5005"   # Debug port for service-registry
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
     networks:
       - hms-network
 
@@ -16,10 +19,11 @@ services:
     container_name: auth-service
     ports:
       - "8081:8081"
+      - "5006:5006"   # Debug port for auth-service
     depends_on:
       - service-registry
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=prod
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006
     networks:
       - hms-network
 
@@ -29,13 +33,14 @@ services:
     container_name: hms-api-gateway
     ports:
       - "8082:8082"
+      - "5007:5007"   # Debug port for api-gateway
     depends_on:
       - service-registry
       - auth-service
       - profile-service
       - appointment-service
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=prod
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007
     networks:
       - hms-network
 
@@ -45,10 +50,11 @@ services:
     container_name: profile-service
     ports:
       - "8083:8083"
+      - "5008:5008"   # Debug port for profile-service
     depends_on:
       - service-registry
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=prod
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008
     networks:
       - hms-network
 
@@ -58,10 +64,11 @@ services:
     container_name: appointment-service
     ports:
       - "8084:8084"
+      - "5009:5009"   # Debug port for appointment-service
     depends_on:
       - service-registry
-#    environment:
-#      - SPRING_PROFILES_ACTIVE=prod
+    environment:
+      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5009
     networks:
       - hms-network
 
