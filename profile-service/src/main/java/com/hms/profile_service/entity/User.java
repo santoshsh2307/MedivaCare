@@ -48,7 +48,7 @@ public class User {
 
     private String emergencyContactNumber;
 
-    private String photo; // Store as URL or relative file path
+    private String photo;
 
     // Department
     @Column(name = "department_id", nullable = false)

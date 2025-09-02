@@ -17,18 +17,6 @@ public interface UserRepo  extends JpaRepository<User,Long> {
             "FROM User u JOIN Department d ON u.departmentId = d.id")
     List<DoctorDropDownDTO> findAllDoctorsDropDown();
 
-//    @Query(value = "SELECT new com.hms.profile_service.DTO.DoctorDetailsDTO(" +
-//            "u.id, u.username, u.phone_number, d.name, " +
-//            "p.qualification, p.years_of_experience, " +
-//            "p.specialization, p.medical_registration_number, " +
-//            "p.created_at, p.is_active) " +
-//            "FROM users u " +
-//            "JOIN department d ON u.department_id = d.id " +
-//            "JOIN professional_information p ON u.professional_id = p.id",)
-////            nativeQuery = true)
-//    List<DoctorDetailsDTO> getAllDoctorsDetails();
-
-
 
 @Query("SELECT new com.hms.profile_service.DTO.DoctorDetailsDTO(" +
         "u.id, u.username, u.phoneNumber, d.name, " +
@@ -41,4 +29,7 @@ public interface UserRepo  extends JpaRepository<User,Long> {
 List<DoctorDetailsDTO> getAllDoctorsDetails();
 
 
+    boolean existsByUsername(String username);
+
+    boolean existsByPhoneNumber(String phoneNumber);
 }
