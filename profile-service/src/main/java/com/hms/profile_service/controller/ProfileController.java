@@ -1,10 +1,13 @@
 package com.hms.profile_service.controller;
 
 import com.hms.profile_service.dto.ApiResponse;
+import com.hms.profile_service.dto.DoctorAvailabilityRequest;
 import com.hms.profile_service.dto.StaffOnboardingRequest;
 import com.hms.profile_service.dto.StaffOnboardingResponse;
 import com.hms.profile_service.exception.DuplicateResourceException;
+import com.hms.profile_service.model.DoctorAvailability;
 import com.hms.profile_service.model.User;
+import com.hms.profile_service.service.DoctorAvailabilityService;
 import com.hms.profile_service.service.StaffOnboardingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/profile")
@@ -28,9 +34,12 @@ public class ProfileController {
     }
 
     private final StaffOnboardingService staffOnboardingService;
+    private final DoctorAvailabilityService doctorAvailabilityService;
 
-    public ProfileController(StaffOnboardingService staffOnboardingService) {
+
+    public ProfileController(StaffOnboardingService staffOnboardingService, DoctorAvailabilityService doctorAvailabilityService) {
         this.staffOnboardingService = staffOnboardingService;
+        this.doctorAvailabilityService = doctorAvailabilityService;
     }
 
    // @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
@@ -65,6 +74,57 @@ public class ProfileController {
                         new ApiResponse<>("ERROR", "Failed: " + ex.getMessage(), null)
                 ));
     }
+
+    // 1. Save availability
+    @PostMapping("/createAvailability")
+    public ResponseEntity<?> createAvailability(@RequestBody DoctorAvailabilityRequest request) {
+        try {
+            DoctorAvailability saved = doctorAvailabilityService.saveAvailability(request);
+            return ResponseEntity.ok(saved);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error saving availability: " + e.getMessage());
+        }
+    }
+
+    // 2. Get availability by doctor
+    @GetMapping("doctorAvailability/{doctorId}")
+    public ResponseEntity<?> getAvailabilityByDoctor(@PathVariable Long doctorId) {
+        try {
+            List<DoctorAvailability> availabilities = doctorAvailabilityService.getAvailabilityByDoctor(doctorId);
+            if (availabilities.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(availabilities);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error fetching availability: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/doctorDropdown")
+    public ResponseEntity<List<Map<String, Object>>> getDoctors() {
+        List<User> doctors = doctorAvailabilityService.findActiveUsersByRole("DOCTOR");
+
+        List<Map<String, Object>> response = doctors.stream()
+                .map(user -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("id", user.getId());
+                    map.put("name", user.getFullName() + (user.getSpecialization() != null ? " (" + user.getSpecialization() + ")" : ""));
+                    return map;
+                })
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
+
+
+//    @GetMapping("/doctorDropdown")
+//    public ResponseEntity<?> getDoctors() {
+//        // Mock response; later replace with Feign client call to doctor-service
+//        return ResponseEntity.ok(List.of(
+//                Map.of("id", 1, "name", "Dr. John Doe"),
+//                Map.of("id", 2, "name", "Dr. Smith")
+//        ));
+//    }
 
 }
 

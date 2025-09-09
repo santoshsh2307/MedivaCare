@@ -16,7 +16,7 @@ public class GatewayCorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // Allow only your React app (safer than "*")
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        config.setAllowedOrigins(Arrays.asList("http://27.7.154.118:3000","http:localhost:3000","http://223.181.119.158:3000"));
 
 
         // Allow all methods (GET, POST, PUT, DELETE, OPTIONS)
