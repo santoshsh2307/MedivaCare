@@ -43,8 +43,8 @@ public class ProfileController {
     }
 
    // @PreAuthorize("hasAnyRole('ADMIN', 'MANAGER')")
-    @PostMapping("/onboarding")
-    public Mono<ResponseEntity<ApiResponse<StaffOnboardingResponse>>> onboarding(
+    @PostMapping("/onboardingDoctor")
+    public Mono<ResponseEntity<ApiResponse<StaffOnboardingResponse>>> onboardingDoctor(
             @RequestHeader("X-Auth-Username") String username,
             @RequestBody StaffOnboardingRequest request) {
 

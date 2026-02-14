@@ -144,6 +144,17 @@ public class DoctorAvailabilityServiceImpl implements DoctorAvailabilityService 
         return userRepository.findActiveUsersByRole("ROLE_DOCTOR");
     }
 
+    @Override
+    public List<Map<String, Object>> getDoctorsDropdown() {
+        List<User> doctors = findActiveUsersByRole("DOCTOR");
+        return doctors.stream().map(user -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", user.getId());
+            map.put("name", user.getFullName());
+            return map;
+        }).collect(Collectors.toList());
+    }
+
 
 }
 

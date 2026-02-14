@@ -11,5 +11,6 @@ public interface StaffOnboardingService {
     Mono<StaffOnboardingResponse> onboard(String performedBy, StaffOnboardingRequest request);
 
     Flux<User> getAllActiveUsers();
+
 }
 

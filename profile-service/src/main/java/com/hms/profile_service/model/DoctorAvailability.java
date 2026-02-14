@@ -20,7 +20,11 @@ public class DoctorAvailability {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long doctorId; // only store doctor ID, no FK
+    private Long doctorId;
+
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
 
     private LocalDate startDate;
     private LocalDate endDate;
@@ -28,22 +32,19 @@ public class DoctorAvailability {
     private LocalTime startTime;
     private LocalTime endTime;
 
-    private Integer intervalMinutes;
+    private Integer intervalMinutes; // token duration
 
-    // Store weekdays as comma-separated string, e.g., "MON,TUE,FRI"
-    private String weekdays;
+    private String weekdays; // "MON,TUE,FRI"
 
-    // 1. Optional: Specific dates with custom times
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "availability")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "availability")
     private List<CustomDateAvailability> customDates;
 
-    // 2. Optional: Per-weekday custom times
     @ElementCollection
     @CollectionTable(name = "doctor_weekday_time", joinColumns = @JoinColumn(name = "availability_id"))
-    @MapKeyColumn(name = "weekday") // "MON", "TUE", etc.
+    @MapKeyColumn(name = "weekday")
     private Map<String, TimeRange> weekdayTimeRanges;
 
-    // ---------------- Nested classes ----------------
+    private boolean onCall = false; // emergency or on-call flag
 
     @Embeddable
     @Data
@@ -75,3 +76,4 @@ public class DoctorAvailability {
         private DoctorAvailability availability;
     }
 }
+
