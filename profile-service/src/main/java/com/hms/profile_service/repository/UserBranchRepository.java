@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface UserBranchRepository extends JpaRepository<UserBranch, Long> {
     List<UserBranch> findByUser(User user);
+
+    List<UserBranch> findByUser_Id(Long userId);
 }

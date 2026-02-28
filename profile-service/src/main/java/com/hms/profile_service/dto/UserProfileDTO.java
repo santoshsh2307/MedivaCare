@@ -3,6 +3,7 @@ package com.hms.profile_service.dto;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -33,4 +34,5 @@ public class UserProfileDTO {
     private String qualification;
     private Integer yearsOfExperience;
     private Boolean isActive;
+    private List<String> roles;
 }

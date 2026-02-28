@@ -1,12 +1,12 @@
 package com.hms.profile_service.serviceImpl;
 
-import com.hms.profile_service.dto.BranchRequest;
-import com.hms.profile_service.dto.BranchResponse;
-import com.hms.profile_service.dto.BranchTreeBuilder;
-import com.hms.profile_service.dto.BranchTreeResponse;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hms.profile_service.dto.*;
 import com.hms.profile_service.model.Branch;
 import com.hms.profile_service.model.User;
 import com.hms.profile_service.model.UserBranch;
+import com.hms.profile_service.projection.BranchHierarchyProjection;
 import com.hms.profile_service.repository.BranchRepository;
 import com.hms.profile_service.repository.UserBranchRepository;
 import com.hms.profile_service.repository.UserRepository;
@@ -14,6 +14,8 @@ import com.hms.profile_service.service.BranchService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -25,10 +27,11 @@ public class BranchServiceImpl implements BranchService {
 
     private final UserBranchRepository userBranchRepository;
 
-    public BranchServiceImpl(BranchRepository branchRepository, UserRepository userRepository, UserBranchRepository userBranchRepository) {
+    public BranchServiceImpl(BranchRepository branchRepository, UserRepository userRepository, UserBranchRepository userBranchRepository, ObjectMapper objectMapper) {
         this.branchRepository = branchRepository;
-        this.userRepository=userRepository;
+        this.userRepository = userRepository;
         this.userBranchRepository = userBranchRepository;
+        this.objectMapper = objectMapper;
     }
 
 
@@ -40,7 +43,7 @@ public class BranchServiceImpl implements BranchService {
         branch.setLocation(request.getLocation());
         branch.setStatus("ACTIVE");
 
-        if(request.getParentId() != null){
+        if (request.getParentId() != null) {
             Branch parent = branchRepository.findById(request.getParentId())
                     .orElseThrow(() -> new RuntimeException("Parent branch not found"));
             branch.setParent(parent);
@@ -88,10 +91,10 @@ public class BranchServiceImpl implements BranchService {
                 .toList();
     }
 
-    public List<BranchResponse> listBranchesForUser(Long userId){
+    public List<BranchResponse> listBranchesForUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
 
-        if(user.getRoles().contains("SUPER_ADMIN")){
+        if (user.getRoles().contains("SUPER_ADMIN")) {
             return list(); // all branches
         }
 
@@ -105,6 +108,49 @@ public class BranchServiceImpl implements BranchService {
     public List<BranchTreeResponse> getTree() {
         // simplified - build hierarchy
         return BranchTreeBuilder.build(branchRepository.findAll());
+    }
+
+    //private final BranchRepository branchRepository;
+    private final ObjectMapper objectMapper;
+
+    public List<BranchHierarchyDTO> getBranchHierarchy() {
+
+        List<BranchHierarchyProjection> result =
+                branchRepository.findBranchHierarchy();
+
+        return result.stream().map(r -> {
+
+            BranchHierarchyDTO dto = new BranchHierarchyDTO();
+
+            dto.setBranchId(r.getBranchId());
+            dto.setBranchName(r.getBranchName());
+            dto.setLocation(r.getLocation());
+            dto.setStatus(r.getStatus());
+            dto.setType(r.getType());
+            dto.setParentBranchName(r.getParentBranchName());
+
+            try {
+                dto.setSpaces(
+                        objectMapper.readValue(
+                                r.getSpaces(),
+                                new TypeReference<List<SpaceDTO>>() {
+                                })
+                );
+
+                dto.setUsers(
+                        objectMapper.readValue(
+                                r.getUsers(),
+                                new TypeReference<List<UserProfileDTO>>() {
+                                })
+                );
+
+            } catch (Exception e) {
+                throw new RuntimeException("JSON Parsing Error", e);
+            }
+
+            return dto;
+
+        }).toList();
     }
 }
 
