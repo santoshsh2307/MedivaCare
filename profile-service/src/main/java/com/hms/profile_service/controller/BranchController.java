@@ -5,6 +5,7 @@ import com.hms.profile_service.model.User;
 import com.hms.profile_service.service.BranchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +21,14 @@ public class BranchController {
     }
 
     @PostMapping
-    public ResponseEntity<BranchResponse> create(@RequestBody BranchRequest request, @RequestHeader("X-Auth-UserId") Long creatorId) {
-        return ResponseEntity.ok(branchService.create(request, creatorId));
+    public ResponseEntity<BranchResponse> create(
+            @RequestBody BranchRequest request
+    ) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String username = authentication.getName(); // comes from JWT sub
+
+        return ResponseEntity.ok(branchService.create(request, 1l));
     }
 
     @GetMapping

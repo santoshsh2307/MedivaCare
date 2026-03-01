@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -130,19 +131,34 @@ public class BranchServiceImpl implements BranchService {
             dto.setParentBranchName(r.getParentBranchName());
 
             try {
-                dto.setSpaces(
-                        objectMapper.readValue(
-                                r.getSpaces(),
-                                new TypeReference<List<SpaceDTO>>() {
-                                })
-                );
 
-                dto.setUsers(
-                        objectMapper.readValue(
-                                r.getUsers(),
-                                new TypeReference<List<UserProfileDTO>>() {
-                                })
-                );
+                // ---------- SPACES ----------
+                String spacesJson = r.getSpaces();
+
+                if (spacesJson != null && !spacesJson.isBlank()) {
+                    dto.setSpaces(
+                            objectMapper.readValue(
+                                    spacesJson,
+                                    new TypeReference<List<SpaceDTO>>() {}
+                            )
+                    );
+                } else {
+                    dto.setSpaces(Collections.emptyList());
+                }
+
+                // ---------- USERS ----------
+                String usersJson = r.getUsers();
+
+                if (usersJson != null && !usersJson.isBlank()) {
+                    dto.setUsers(
+                            objectMapper.readValue(
+                                    usersJson,
+                                    new TypeReference<List<UserProfileDTO>>() {}
+                            )
+                    );
+                } else {
+                    dto.setUsers(Collections.emptyList());
+                }
 
             } catch (Exception e) {
                 throw new RuntimeException("JSON Parsing Error", e);
